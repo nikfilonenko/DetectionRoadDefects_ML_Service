@@ -1,6 +1,7 @@
 from fastapi import FastAPI, File, UploadFile
 import numpy as np
 import cv2
+
 app = FastAPI()
 
 class IDbService:
