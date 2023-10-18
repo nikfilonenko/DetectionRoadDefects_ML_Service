@@ -1,5 +1,6 @@
-from fastapi import FastAPI
-import requests
+from fastapi import FastAPI, File, UploadFile
+import numpy as np
+import cv2
 app = FastAPI()
 
 class IDbService:
@@ -23,8 +24,8 @@ async def root():
 
 
 @app.post("/")
-async def say_hello(url: str, x: int, y: int):
-    image = requests.get(url)
+async def post(x: int, y: int, image: UploadFile = File(...)):
+    image = cv2.imdecode(np.frombuffer(image.file.read(), np.uint8), -1)
     image = ml.getData(image)
     service.saveFile(image, x, y)
     return image
