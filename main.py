@@ -4,13 +4,26 @@ from PIL import Image
 from loguru import logger
 import sys
 
+from io import BytesIO
+
 from fastapi import FastAPI, File, status, UploadFile
 from fastapi.responses import RedirectResponse
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import HTTPException
 
+# logger
 
+logger.remove()
+logger.add(
+    sys.stderr,
+    colorize=True,
+    format="<green>{time:HH:mm:ss}</green> | <level>{message}</level>",
+    level=10,
+)
+logger.add("log.log", rotation="1 MB", level="DEBUG", compression="zip")
+
+# FastAPI Setup
 
 app = FastAPI(
     title="Detection Road Defects API",
