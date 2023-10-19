@@ -1,19 +1,34 @@
-from fastapi import FastAPI, File, UploadFile
-import numpy as np
-import cv2
+import json
+import pandas as pd
+from PIL import Image
+from loguru import logger
+import sys
 
-app = FastAPI()
+from fastapi import FastAPI, File, status, UploadFile
+from fastapi.responses import RedirectResponse
+from fastapi.responses import StreamingResponse
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.exceptions import HTTPException
+
+
+
+app = FastAPI(
+    title="Detection Road Defects API",
+    description="""Obtain object value out of image
+                    and return image and json result""",
+    version="2023.1.31",
+)
 
 class IDbService:
     def saveFile(self, data, x, y):
-        ...
+        pass
 
     def getPoints(self):
-        ...
+        pass
 
 class IMlService:
     def getData(self, image):
-        ...
+        pass
 
 service = IDbService()
 ml = IMlService
